@@ -1,7 +1,79 @@
+/* body styling */
+body {
+    background-color: #181818;
+    font-family: 'Open Sans', sans-serif; 
+    background-image: url(../images/bird-background.jpg);
+    background-size: cover;
+    /* background-position: center;  */
+    background-repeat: no-repeat; 
+}
+
+/* Sweet Alert styling */
+.swal {
+    font-family: 'Open Sans', sans-serif; 
+}
+
+.swal-button {
+    color: #181818;
+    background-color: #49a7f7;
+}
+
+.swal-modal {
+    background-color: #efda00;
+}
+
+.swal-text {
+    font-size: 30px;
+    color: #181818;
+}
+
+/* Buttons */
 .buttonDiv {
     text-align: center;
 }
 
-.header {
+.startButt {
+    color: #181818;
+}
+
+.btn {
+    background-color: #49a7f7;
+    color: #181818
+}
+.btn:hover {
+    background-color: #efda00;
+    color: #181818;
+  }
+
+  /* Game area content */
+.gameArea, .choicesArea {
     text-align: center;
 }
+
+.gameArea {
+    font-size: 35px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: #49a7f7;
+}
+
+.gameJumbo {
+    background-color: #bd3921;
+}
+
+hr {
+    border-top: .5px solid #181818;
+}
+
+.timeLeft {
+    font-size: 40px;
+}
+
+.correctNum {
+    font-size: 40px;
+}
+
+
+
