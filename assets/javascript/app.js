@@ -45,8 +45,10 @@ $(document).ready(function () {
     // object with game data
     var gameData = {
         points: 0,
+        incorrect: 0,
         timeLeft: 15,
         qCounter: -1,
+        gameEnd: false
     }
 
     // timer interval var
@@ -60,22 +62,36 @@ $(document).ready(function () {
     function displayQ() {
 
         // increase qcounter by 1, this is how I change my question using an array of OBJ's
-        gameData.qCounter++
         gameData.timeLeft = 15;
         countDown();
         $('.gameArea').empty()
         $('.choicesArea').empty()
         $('.timerArea').empty()
         $('.correctArea').empty()
-        $('.gameArea').append(questionArr[gameData.qCounter].question)
+        if (gameData.qCounter !== 6) {
+            gameData.qCounter++
+        }
+        if (gameData.qCounter === 6 && !gameData.endGame) {
+            $('.gameArea').append(questionArr[gameData.qCounter].question)
+            stop();
+            endGame = true
+        }
+        // else if(gameData.endGame) {
+        //     $('.gameJumbo').empty()
+        // }
+        else if (!gameData.endGame) {
+            $('.gameArea').append(questionArr[gameData.qCounter].question)
+        }
+
+
 
         // loops through my array of questions.choices of each question depending on what the index og qcounter is on
         for (var i = 0; i < questionArr[gameData.qCounter].choices.length; i++) {
-            
+
             // stopping the loop after questions are done?
-            if (questionArr[gameData.qCounter[i]] > questionArr.length) {
+            if (gameData.endGame === true) {
                 stop();
-                swal("Game Over!")
+                console.log("Game Over!")
             }
 
             // append the correlating choices to the DOM as buttons
@@ -85,6 +101,7 @@ $(document).ready(function () {
         // my timers and correct guesses appended to DOM
         $('.timerArea').append(`<div class="timeLeft">Time Left: ${gameData.timeLeft}</div>`)
         $('.correctArea').append(`<div class="correctNum">Correct: ${gameData.points}</div>`)
+        $('.correctArea').append(`<div class="incorrectNum">Incorrect: ${gameData.incorrect}</div>`)
 
     };
 
@@ -120,20 +137,35 @@ $(document).ready(function () {
 
         // is correct display correct alert and move to next question
         if (userGuess === questionArr[gameData.qCounter].correct) {
-            swal("Correct!")
-
+            stop()
+                console.log("Correct!")
             // adding one to my Question counter pulling from question Array 
-            console.log("You win!")
             gameData.points++
-            displayQ()
+
+            // update html
+            $('.gameArea').html("Correct!")
+            // timeout
+            nextQ()
         }
         else if (userGuess !== questionArr[gameData.qCounter].correct) {
-            swal("Incorrect!")
+            // update HTML INCORRECT and then call displayq.
+            $('.gameArea').html("Incorrect! the correct answer was " + questionArr[gameData.qCounter].correct)
+            gameData.incorrect++
+            stop()
+            nextQ()
+            console.log("incorrect")
+            
         }
     })
 
     // Timers============================================
     // ====================================================================================================================
+
+    function nextQ() {
+        setTimeout(function () {
+            displayQ()
+        }, 1700)
+    }
 
     function countDown() {
 
@@ -148,20 +180,25 @@ $(document).ready(function () {
 
         // if out of time move to next question and alert user
         if (gameData.timeLeft === 0) {
-            swal("You ran out of time!")
+            gameData.incorrect++
+            console.log("You ran out of time!")
             clearInterval(intervalId);
-            displayQ();
+            // displayQ();
+            nextQ()
+            stop()
+            $('.gameArea').html("Sorry! You ran out of time!")
         };
         $('.timeLeft').html("Time Left: " + gameData.timeLeft);
     }
 
-    // function to stop timer(NOT WORKING CURRENTLY UGH)
+    // function to stop timer
     function stop() {
 
         clearInterval(intervalId)
-        swal("game over!");
+        console.log("stopped")
+        // update HTML with final numbers of game. stop timer. 
+        // if (gameData.endGame) {
+        //     $('.gameJumbo').empty()
+        // }  
     }
 });
-
-
-// stuff to go over, timer stop function, stopping clock when alert is displayed(starting it when screen/alert is clicked), errors at end of code when questions are done

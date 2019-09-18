@@ -8,25 +8,6 @@ body {
     background-repeat: no-repeat; 
 }
 
-/* Sweet Alert styling */
-.swal {
-    font-family: 'Open Sans', sans-serif; 
-}
-
-.swal-button {
-    color: #181818;
-    background-color: #49a7f7;
-}
-
-.swal-modal {
-    background-color: #efda00;
-}
-
-.swal-text {
-    font-size: 30px;
-    color: #181818;
-}
-
 /* Buttons */
 .buttonDiv {
     text-align: center;
@@ -71,7 +52,7 @@ hr {
     font-size: 40px;
 }
 
-.correctNum {
+.correctNum, .incorrectNum {
     font-size: 40px;
 }
 
