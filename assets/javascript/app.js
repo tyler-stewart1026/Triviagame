@@ -60,7 +60,15 @@ $(document).ready(function () {
     // function that displays my questions
 
     function displayQ() {
-
+        console.log(gameData.qCounter)
+        if (gameData.qCounter > 5) {
+            $('.gameArea').html("Correct answers: " + gameData.points + " " + "Incorrect answers: " + gameData.incorrect)
+            $('.choicesArea').empty()
+            $('.timerArea').empty()
+            $('.correctArea').empty()
+            $('.restartButt').css("display", "block")
+            return;
+        }
         // increase qcounter by 1, this is how I change my question using an array of OBJ's
         gameData.timeLeft = 15;
         countDown();
@@ -76,9 +84,7 @@ $(document).ready(function () {
             stop();
             endGame = true
         }
-        // else if(gameData.endGame) {
-        //     $('.gameJumbo').empty()
-        // }
+
         else if (!gameData.endGame) {
             $('.gameArea').append(questionArr[gameData.qCounter].question)
         }
@@ -110,6 +116,7 @@ $(document).ready(function () {
 
     // hide game Area jumbo
     $('.gameJumbo').css("display", "none")
+    $('.restartButt').css("display", "none")
 
     // Start Button Function starts the game 
     $('.startButt').click(function () {
@@ -138,7 +145,7 @@ $(document).ready(function () {
         // is correct display correct alert and move to next question
         if (userGuess === questionArr[gameData.qCounter].correct) {
             stop()
-                console.log("Correct!")
+            console.log("Correct!")
             // adding one to my Question counter pulling from question Array 
             gameData.points++
 
@@ -154,7 +161,7 @@ $(document).ready(function () {
             stop()
             nextQ()
             console.log("incorrect")
-            
+
         }
     })
 
@@ -202,3 +209,9 @@ $(document).ready(function () {
         // }  
     }
 });
+
+// Restart Button============================================
+// ====================================================================================================================
+ $(".restartButt").on("click", function (event){
+     location.reload();
+ })
